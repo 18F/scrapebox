@@ -30,4 +30,10 @@ You can start the crawling using the below command:
 scrapy crawl <spider_name>
 ```
 
-Scraped data is output as JSON in 'feed.json'. You can change this by editing the settings.py file.
+Data
+===================
+By default, scraped data is output as JSON in '<project_root>/feed.json'. Data can also be output as XML, CSV or XML, or
+go directly to a database or webservice.
+
+You can change output options by editing the settings.py file.
+
