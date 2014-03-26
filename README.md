@@ -1,8 +1,8 @@
 Scrapebox
 ============================
+A simple, system independent infrastructure for performing web scraping. Utilizes Vagrant virtualbox interface and puppet provisioning to create and execute scraping of web content to structured data quickly and easily without modifying your core system.
 
-Scrapebox is a common infrastructure for powering web crawlers and scrapers. This infrastructure can be used to create structured data
-from various web resources to power data catalogs and applications.
+Scrapebox is a common infrastructure for powering web crawlers and scrapers. This infrastructure can be used to create structured data from various web resources to power data catalogs and applications.
 
 Installation
 ===================
