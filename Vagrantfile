@@ -61,7 +61,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the file ..pp in the manifests_path directory.
   config.vm.provision :puppet do |puppet|
      puppet.manifests_path = "tools/puppet/manifests"
-  #   puppet.options = ['--verbose', '--debug']
+     puppet.options = ['--verbose']
      puppet.manifest_file  = "site.pp"
      puppet.facter = {
         "fqdn" => "devel"

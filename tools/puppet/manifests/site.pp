@@ -30,15 +30,21 @@ package {$mypackages:
 }->
 python::requirements { '/vagrant/requirements.txt': }
 
-python::gunicorn { 'vhost':
-    ensure      => present,
-    mode        => 'wsgi',
-    dir         => '/vagrant/scrapebox/web',
-    bind        => '192.168.33.10:80'
-}
+file{'/data':
+  ensure    => "directory",
+  owner     => "vagrant",
+  mode      => "ug+rwx",
+}->
 
-exec {'initdb':
+exec {'django_syncdb':
   command     => 'python manage.py syncdb',
-  directory   => '/vagrant',
-
+  cwd   => '/vagrant/scrapebox',
+}->
+python::gunicorn { 'vhost':
+    ensure          => present,
+    mode            => 'wsgi',
+    dir             => '/vagrant/scrapebox/web',
+    bind            => '192.168.33.10:80',
+    environment     => 'dev',
+    template        => 'python/gunicorn.erb',
 }
