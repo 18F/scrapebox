@@ -1,4 +1,7 @@
-requests
-lxml
-cssselect
-scrapy
+requests == 2.2.1
+lxml ==  3.3.3
+beautifulsoup4 == 4.3.2
+scrapy ==  0.22.2
+django == 1.6.2
+django-celery == 3.1.9
+django-dynamic-scraper == 0.3.7
