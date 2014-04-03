@@ -12,6 +12,6 @@ a common image and configure it using Vagrant (Puppet) so that all developers ha
 To start the virtual machine type
 ```vagrant up```
 
-Wait for installation and setup to complete (several minutes), then browse to
-```http://localhost:9001/static/main.html```
+Wait for installation and setup to complete (several minutes), then browse to 
+[http://localhost:9001/static/main.html](http://localhost:9001/static/main.html)
 
