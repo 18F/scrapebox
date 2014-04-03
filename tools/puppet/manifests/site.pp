@@ -38,17 +38,19 @@ package {$mypackages:
 #}->
 exec{ 'clone portia':
     command   => "git clone https://github.com/scrapinghub/portia.git /portia",
-    creates   => "/portia"
+    creates   => "/portia",
 }->
-python::requirements{"/portia/slyd/requirements.txt":}->
+#python::requirements{"/portia/slyd/requirements.txt":}->
 exec{"install_requirements":
   command   => 'pip install -r requirements.txt',
-  cwd   => '/portia/slyd'
+  cwd   => '/portia/slyd',
+  require => Class['python'],
+  path    => '/usr/bin/',
 }->
 exec{'run_portia':
-    command   => "twistd -n slyd",
+    command   => "twistd slyd",
     cwd       => "/portia/slyd",
-    unless    => ["ps -ef | grep '[t]wistd'"]
+    unless    => ["ps -ef | grep '[t]wistd'"],
 }
 
 
