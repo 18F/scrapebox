@@ -1,7 +1,7 @@
 ##Make sure all the packages are up to date
 
 Exec {
-    path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/node/node-default/bin/" ],
+    path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin/" ],
     timeout   => 0,
 }
 
@@ -26,6 +26,29 @@ class { 'python':
 #Note, manually installing python dev, as above package doesn't seem to do it
 $mypackages = ["libxml2-dev", "libxslt-dev", "python-dev", "libffi-dev"]
 package {$mypackages:
-  ensure    => "installed"
+  ensure    => "installed",
+}
+
+#Install Portia
+#file { "/portia":
+#    ensure => "directory",
+#    purge  => true, # purge all unmanaged junk
+#    force  => true, # also purge subdirs and links
+#    recurse => true, # honestly don't know diff b/t this and purge
+#}->
+exec{ 'clone portia':
+    command   => "git clone https://github.com/scrapinghub/portia.git /portia",
+    creates   => "/portia"
 }->
-python::requirements { '/vagrant/requirements.txt': }
+python::requirements{"/portia/slyd/requirements.txt":}->
+exec{"install_requirements":
+  command   => 'pip install -r requirements.txt',
+  cwd   => '/portia/slyd'
+}->
+exec{'run_portia':
+    command   => "twistd -n slyd",
+    cwd       => "/portia/slyd",
+    unless    => ["ps -ef | grep '[t]wistd'"]
+}
+
+
